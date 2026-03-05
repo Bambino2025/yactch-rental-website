@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Miami Yacht Collective</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cyan: #00BFFF;
+      --cyan-hover: #00a8e0;
+      --dark-overlay: rgba(40, 20, 90, 0.65);
+      --navy: #0D1B4B;
+      --heading-font: 'Barlow Condensed', sans-serif;
+      --yacht-name-font: 'Bebas Neue', sans-serif;
+      --body-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --card-radius: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--body-font);
+      color: #fff;
+      background: var(--navy);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ───────────── NAVBAR ───────────── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(0, 191, 255, 0.3);
+      transition: box-shadow 0.35s ease;
+    }
+
+    .navbar.scrolled {
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: -20px 0;
+    }
+
+    .navbar-logo img {
+      height: 96px;
+      width: auto;
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-gallery-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: var(--heading-font);
+      letter-spacing: 0.5px;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      padding: 14px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-gallery-nav:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-book {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyan);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: var(--heading-font);
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-book:hover {
+      background: var(--cyan-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(0, 191, 255, 0.35);
+    }
+
+    /* ───────────── GALLERY SECTION ───────────── */
+    .gallery-section {
+      padding: 140px 40px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--heading-font);
+      font-weight: 900;
+      font-size: clamp(120px, 18vw, 260px);
+      color: #fff;
+      opacity: 0.04;
+      text-transform: uppercase;
+      letter-spacing: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-card {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease;
+    }
+
+    .gallery-card:nth-child(3n) {
+      transform: translateY(40px);
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-card:nth-child(3n):hover {
+      transform: translateY(34px);
+    }
+
+    .gallery-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ───────────── LIGHTBOX ───────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .lightbox.active .lightbox-img {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .lightbox-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 26px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      backdrop-filter: blur(4px);
+      z-index: 1001;
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .lightbox-btn.prev { left: 20px; }
+    .lightbox-btn.next { right: 20px; }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--heading-font);
+      font-weight: 600;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 2px;
+      z-index: 1001;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 32px;
+      cursor: pointer;
+      z-index: 1001;
+      transition: color 0.2s ease;
+      line-height: 1;
+      padding: 4px;
+    }
+
+    .lightbox-close:hover {
+      color: #fff;
+    }
+
+    /* ───────────── BOOKING MODAL ───────────── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 480px;
+      width: 90%;
+      padding: 48px 40px;
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-backdrop.active .modal {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #555;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .modal-close:hover {
+      color: #000;
+    }
+
+    .modal-heading {
+      font-family: var(--heading-font);
+      font-weight: 800;
+      font-size: 30px;
+      color: #111;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .modal-subtext {
+      font-size: 16px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-btn {
+      display: block;
+      width: 100%;
+      padding: 20px;
+      border: none;
+      border-radius: 999px;
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .modal-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .modal-btn-call {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .modal-btn-call:hover {
+      box-shadow: 0 6px 20px rgba(13, 27, 75, 0.35);
+    }
+
+    .modal-btn-wa {
+      background: #25D366;
+      color: #fff;
+    }
+
+    .modal-btn-wa:hover {
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+    }
+
+    /* ───────────── RESPONSIVE ───────────── */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 16px 20px;
+      }
+
+      .gallery-section {
+        padding: 120px 20px 60px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .gallery-watermark {
+        font-size: 80px;
+        letter-spacing: 6px;
+      }
+
+      .lightbox-btn { width: 44px; height: 44px; font-size: 22px; }
+      .lightbox-btn.prev { left: 12px; }
+      .lightbox-btn.next { right: 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-section {
+        padding: 110px 16px 48px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .gallery-card:nth-child(3n) {
+        transform: none;
+      }
+
+      .gallery-card:nth-child(3n):hover {
+        transform: translateY(-6px);
+      }
+
+      .btn-gallery-nav {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+
+      .btn-book {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar-logo">
+      <img src="MiamiYachtCollective Logo.png" alt="Miami Yacht Collective Logo">
+    </a>
+    <div class="navbar-actions">
+      <a href="gallery.html" class="btn-gallery-nav">Gallery</a>
+      <a href="#" class="btn-book" data-modal>Book</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════ GALLERY ═══════════ -->
+  <section class="gallery-section">
+    <div class="gallery-watermark">Gallery</div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- ═══════════ LIGHTBOX ═══════════ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-btn prev" id="lightboxPrev">&#8249;</button>
+    <button class="lightbox-btn next" id="lightboxNext">&#8250;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery photo">
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <!-- ═══════════ BOOKING MODAL ═══════════ -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-heading">How Would You Like to Book?</div>
+      <p class="modal-subtext">We'll confirm your booking right away!</p>
+      <div class="modal-buttons">
+        <a href="tel:7876645040" class="modal-btn modal-btn-call">Call us at (787) 664-5040</a>
+        <a href="https://wa.me/17876645040" target="_blank" rel="noopener" class="modal-btn modal-btn-wa">WhatsApp Direct</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Photo list (URL-encoded paths from Party Photos/)
+    const photos = [
+      'Party%20Photos/%20-2.jpg',
+      'Party%20Photos/%20.jpg',
+      'Party%20Photos/%F0%9F%91%AF%E2%80%8D%E2%99%80%EF%B8%8F.jpg',
+      'Party%20Photos/%40gwen_lauw222.jpg',
+      'Party%20Photos/A%20summer%20was%20indeed%20had.jpg',
+      'Party%20Photos/ALANI%20IN%20MIAMI%21%20%F0%9F%9B%A5%EF%B8%8F%F0%9F%8C%B4%E2%9C%A8.jpg',
+      'Party%20Photos/Bachelorette%20Boat%20Party%20in%20Miami%20%7C%20Celebrate%20on%20a%20Prestige%2045%20ft%20Yacht%20%F0%9F%8C%B4%F0%9F%92%8D.jpg',
+      'Party%20Photos/Best%20Miami%20Boat%20Rentals_%20Aquarius%20Boat%20Rental%20%26%20Boat%20Tours.jpg',
+      'Party%20Photos/Besties%20on%20a%20Boat.jpg',
+      'Party%20Photos/Boat%20day%20%F0%9F%8F%9D%EF%B8%8F.jpg',
+      'Party%20Photos/Boat%20in%20miamiii.jpg',
+      'Party%20Photos/digital%20diaries%20of%20an%20endless%20summer%20%F0%9F%9B%A5%EF%B8%8F.jpg',
+      'Party%20Photos/miami%20aesthetic.jpg',
+      'Party%20Photos/Night%20cruise%F0%9F%9B%A5%EF%B8%8F%F0%9F%A5%82.jpg',
+      'Party%20Photos/ona%20yacht.jpg',
+      'Party%20Photos/party%20time%F0%9F%9A%A5.jpg',
+      'Party%20Photos/Regina%20Villarreal%20on%20Instagram_%20%E2%80%9CVery%20pur%20birthday%20%F0%9F%92%8B%F0%9F%92%93%F0%9F%8E%89%F0%9F%8D%BE%E2%80%9D.jpg',
+      'Party%20Photos/summaaa.jpg',
+      'Party%20Photos/this%20night%20is%20sparkling.jpg',
+      'Party%20Photos/two%20pretty%20bsfff.jpg'
+    ];
+
+    // Build gallery grid
+    const grid = document.getElementById('galleryGrid');
+    photos.forEach((src, i) => {
+      const card = document.createElement('div');
+      card.className = 'gallery-card';
+      card.dataset.index = i;
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Party photo ' + (i + 1);
+      img.loading = 'lazy';
+      card.appendChild(img);
+      grid.appendChild(card);
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    let currentPhoto = 0;
+
+    function openLightbox(index) {
+      currentPhoto = index;
+      updateLightbox();
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      lightboxImg.src = photos[currentPhoto];
+      lightboxCounter.textContent = (currentPhoto + 1) + ' / ' + photos.length;
+    }
+
+    function nextPhoto() {
+      currentPhoto = (currentPhoto + 1) % photos.length;
+      updateLightbox();
+    }
+
+    function prevPhoto() {
+      currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+      updateLightbox();
+    }
+
+    // Gallery card clicks
+    grid.addEventListener('click', (e) => {
+      const card = e.target.closest('.gallery-card');
+      if (card) openLightbox(parseInt(card.dataset.index));
+    });
+
+    // Lightbox controls
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxNext').addEventListener('click', nextPhoto);
+    document.getElementById('lightboxPrev').addEventListener('click', prevPhoto);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextPhoto();
+      if (e.key === 'ArrowLeft') prevPhoto();
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          navbar.classList.toggle('scrolled', window.scrollY > 60);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Booking modal
+    const backdrop = document.getElementById('modalBackdrop');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(e) {
+      e.preventDefault();
+      backdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-modal]').forEach(btn => {
+      btn.addEventListener('click', openModal);
+    });
+
+    modalClose.addEventListener('click', closeModal);
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.classList.contains('active')) closeModal();
+    });
+  </script>
+
+</body>
+</html>

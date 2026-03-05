@@ -33,9 +33,97 @@
       min-height: 100vh;
     }
 
+    /* ───────────── TOP NAVBAR ───────────── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(0, 191, 255, 0.3);
+      transition: box-shadow 0.35s ease;
+    }
+
+    .navbar.scrolled {
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: -20px 0;
+      text-decoration: none;
+    }
+
+    .navbar-logo img {
+      height: 96px;
+      width: auto;
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-gallery-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: var(--heading-font);
+      letter-spacing: 0.5px;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      padding: 14px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-gallery-nav:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-book-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyan);
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: var(--heading-font);
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-book-nav:hover {
+      background: var(--cyan-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(0, 191, 255, 0.35);
+    }
+
     /* ───────────── BACK NAV ───────────── */
     .back-nav {
       padding: 28px 40px 16px;
+      padding-top: 100px;
       max-width: 1100px;
       margin: 0 auto;
     }
@@ -345,6 +433,7 @@
 
     /* ───────────── RESPONSIVE ───────────── */
     @media (max-width: 768px) {
+      .navbar { padding: 16px 20px; }
       .back-nav { padding: 20px 20px 12px; }
       .carousel-wrapper { padding: 0 20px; }
       .carousel { height: 360px; }
@@ -358,10 +447,23 @@
       .detail-card { padding: 24px 20px; }
       .specs-row { padding: 12px 16px; }
       .spec-item:not(:last-child) { padding-right: 12px; margin-right: 12px; }
+      .btn-gallery-nav { padding: 10px 20px; font-size: 14px; }
+      .btn-book-nav { padding: 10px 20px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar-logo">
+      <img src="MiamiYachtCollective Logo.png" alt="Miami Yacht Collective Logo">
+    </a>
+    <div class="navbar-actions">
+      <a href="gallery.html" class="btn-gallery-nav">Gallery</a>
+      <a href="#" class="btn-book-nav" data-modal>Book</a>
+    </div>
+  </nav>
 
   <!-- BACK NAV -->
   <nav class="back-nav">
@@ -497,6 +599,19 @@
     carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
     carousel.addEventListener('mouseleave', () => {
       autoPlay = setInterval(() => goToSlide(currentSlide + 1), 5000);
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    let navTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!navTicking) {
+        window.requestAnimationFrame(() => {
+          navbar.classList.toggle('scrolled', window.scrollY > 60);
+          navTicking = false;
+        });
+        navTicking = true;
+      }
     });
 
     // Booking modal

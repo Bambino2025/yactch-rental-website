@@ -60,11 +60,12 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      margin: -20px 0;
     }
 
-    .navbar-logo svg {
-      width: 38px;
-      height: 38px;
+    .navbar-logo img {
+      height: 96px;
+      width: auto;
     }
 
     .btn-book {
@@ -89,6 +90,36 @@
       background: var(--cyan-hover);
       transform: translateY(-1px);
       box-shadow: 0 4px 18px rgba(0, 191, 255, 0.35);
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-gallery-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: var(--heading-font);
+      letter-spacing: 0.5px;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      padding: 14px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-gallery-nav:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
     }
 
     /* ───────────── HERO ───────────── */
@@ -243,168 +274,228 @@
     /* ───────────── FLEET SECTION ───────────── */
     .fleet {
       background: #F8F8F6;
-      padding: 72px 40px 80px;
+      padding: 80px 40px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fleet-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--heading-font);
+      font-weight: 900;
+      font-size: clamp(120px, 18vw, 260px);
+      color: var(--navy);
+      opacity: 0.07;
+      text-transform: uppercase;
+      letter-spacing: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
     }
 
     .fleet-grid {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ── YACHT CARD (shared) ── */
+    /* ── YACHT CARD ── */
     .yacht-card {
-      position: relative;
+      background: #fff;
       border-radius: var(--card-radius);
       overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
       transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease;
     }
 
     .yacht-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
     }
 
-    .yacht-card-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.5s ease;
-    }
-
-    .yacht-card:hover .yacht-card-bg {
-      transform: scale(1.05);
-    }
-
-    .yacht-card-gradient {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.72) 0%,
-        rgba(0, 0, 0, 0.35) 40%,
-        rgba(0, 0, 0, 0.05) 70%,
-        transparent 100%
-      );
-    }
-
-    .yacht-card-content {
+    /* ── CARD CAROUSEL ── */
+    .card-carousel {
       position: relative;
-      z-index: 2;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #e8e8e8;
+    }
+
+    .card-carousel img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
       height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card-carousel img.active {
+      opacity: 1;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .carousel-btn:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+
+    /* ── CARD BODY ── */
+    .card-body {
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 28px 30px;
+      gap: 12px;
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .yacht-name {
-      font-family: var(--yacht-name-font);
-      font-weight: 400;
-      font-size: clamp(28px, 3.2vw, 42px);
-      color: #fff;
-      text-transform: uppercase;
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .yacht-stars {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex-shrink: 0;
+      gap: 2px;
+    }
+
+    .yacht-stars .stars {
+      color: #F59E0B;
+      font-size: 15px;
       letter-spacing: 1px;
-      line-height: 1.05;
-      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    .yacht-stars .reviews-text {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .yacht-specs {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.4;
+    }
+
+    .yacht-desc {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .card-divider {
+      border: none;
+      height: 1px;
+      background: #E5E7EB;
+      margin: 0;
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .yacht-price {
-      font-family: var(--body-font);
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.82);
-      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .btn-details {
+    .yacht-price .price-amount {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 20px;
+      color: #1a1a2e;
+    }
+
+    .yacht-price .price-label {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .price-info {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.95);
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid #ccc;
+      font-size: 11px;
+      color: #aaa;
+      cursor: default;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .btn-book-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
       color: var(--navy);
       font-weight: 700;
       font-size: 14px;
       font-family: var(--heading-font);
-      letter-spacing: 0.3px;
-      border: 1.5px solid var(--navy);
-      border-radius: 999px;
-      padding: 9px 20px;
+      letter-spacing: 0.5px;
+      border: 2px solid var(--navy);
+      border-radius: 50px;
+      padding: 10px 24px;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-      width: fit-content;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
     }
 
-    .btn-details:hover {
-      background: #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn-details-arrow {
-      font-size: 16px;
-      line-height: 1;
-      color: var(--navy);
-    }
-
-    /* ── FEATURED CARD ── */
-    .yacht-card.featured {
-      height: 320px;
-    }
-
-    /* ── BADGE ── */
-    .badge-offer {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 3;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(15, 10, 40, 0.82);
-      backdrop-filter: blur(6px);
+    .btn-book-card:hover {
+      background: var(--navy);
       color: #fff;
-      font-family: var(--heading-font);
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      padding: 8px 16px;
-      border-radius: 999px;
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      background: #3ddc84;
-      border-radius: 50%;
-      box-shadow: 0 0 6px #3ddc84, 0 0 12px rgba(61, 220, 132, 0.4);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; box-shadow: 0 0 6px #3ddc84, 0 0 12px rgba(61, 220, 132, 0.4); }
-      50% { opacity: 0.6; box-shadow: 0 0 3px #3ddc84, 0 0 6px rgba(61, 220, 132, 0.2); }
-    }
-
-    /* ── 2-COLUMN GRID ── */
-    .fleet-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .fleet-row .yacht-card {
-      height: 300px;
-    }
-
-    .fleet-row-3 {
-      grid-template-columns: 1fr 1fr 1fr;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(13, 27, 75, 0.25);
     }
 
     /* ───────────── FOOTER ───────────── */
@@ -654,24 +745,18 @@
         padding: 48px 20px 60px;
       }
 
-      .fleet-row {
+      .fleet-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
       }
 
-      .fleet-row-3 {
-        grid-template-columns: 1fr;
-      }
-
-      .yacht-card.featured {
-        height: 280px;
-      }
-
-      .fleet-row .yacht-card {
-        height: 280px;
+      .fleet-watermark {
+        font-size: 80px;
+        letter-spacing: 6px;
       }
 
       .yacht-name {
-        font-size: 28px;
+        font-size: 22px;
       }
 
       .footer {
@@ -703,9 +788,9 @@
         font-size: 14px;
       }
 
-      .yacht-card.featured,
-      .fleet-row .yacht-card {
-        height: 260px;
+      .card-body {
+        padding: 18px;
+        gap: 10px;
       }
     }
   </style>
@@ -715,15 +800,12 @@
   <!-- ═══════════ NAVBAR ═══════════ -->
   <nav class="navbar" id="navbar">
     <div class="navbar-logo">
-      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 44c0 0 6-2 14-2s14 2 24 2 10-2 10-2" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M12 44l4-20h6l10 14h10l-2-14h6l4 20" fill="white" opacity="0.9"/>
-        <path d="M28 24V8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M28 8l12 8-12 4V8z" fill="white" opacity="0.75"/>
-        <path d="M6 48c0 0 8 4 26 4s26-4 26-4" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-      </svg>
+      <img src="MiamiYachtCollective Logo.png" alt="Miami Yacht Collective Logo">
     </div>
-    <a href="#" class="btn-book" data-modal>Book</a>
+    <div class="navbar-actions">
+      <a href="gallery.html" class="btn-gallery-nav">Gallery</a>
+      <a href="#" class="btn-book" data-modal>Book</a>
+    </div>
   </nav>
 
   <!-- ═══════════ HERO ═══════════ -->
@@ -739,67 +821,150 @@
 
   <!-- ═══════════ FLEET ═══════════ -->
   <section class="fleet" id="fleet">
+    <div class="fleet-watermark">Our Fleet</div>
     <div class="fleet-grid">
 
-      <!-- FEATURED: ISABELLA 48' W/ JETSKI -->
-      <div class="yacht-card featured">
-        <div class="yacht-card-bg" style="background-image: url('Boat Photos/Maxum/001.avif')"></div>
-        <div class="yacht-card-gradient"></div>
-        <div class="badge-offer">
-          Special Offer
-          <span class="badge-dot"></span>
+      <!-- ISABELLA 48' W/ JETSKI -->
+      <div class="yacht-card">
+        <div class="card-carousel" data-carousel>
+          <img src="Boat Photos/Isabella.avif" alt="Isabella 48'" class="active">
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
         </div>
-        <div class="yacht-card-content">
-          <div class="yacht-name">Isabella 48' W/ Jetski</div>
-          <div class="yacht-price">Prices starting at: $1,100</div>
-          <a href="detail.html?yacht=isabella" class="btn-details">
-            More Details
-            <span class="btn-details-arrow">›</span>
-          </a>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="yacht-name">Isabella 48' W/ Jetski</div>
+            <div class="yacht-stars">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews-text">(37 Reviews)</span>
+            </div>
+          </div>
+          <div class="yacht-specs">48 ft &middot; Up to 13 guests &middot; Luxury cruiser with jet ski included</div>
+          <div class="yacht-desc">Cruise Miami's coastline aboard this stunning 48-foot yacht with a jet ski for added thrills. Perfect for celebrations, sunset tours, and unforgettable days on the water.</div>
+          <hr class="card-divider">
+          <div class="card-bottom">
+            <div class="yacht-price">
+              <span class="price-amount">$1,100</span>
+              <span class="price-label">/ starting</span>
+              <span class="price-info">i</span>
+            </div>
+            <a href="#" class="btn-book-card" data-modal>Book Now</a>
+          </div>
         </div>
       </div>
 
-      <!-- ROW -->
-      <div class="fleet-row fleet-row-3">
-        <!-- MAXUM 46' -->
-        <div class="yacht-card">
-          <div class="yacht-card-bg" style="background-image: url('Boat Photos/ferreti/IMG_7788.avif')"></div>
-          <div class="yacht-card-gradient"></div>
-          <div class="yacht-card-content">
+      <!-- MAXUM 46' -->
+      <div class="yacht-card">
+        <div class="card-carousel" data-carousel>
+          <img src="Boat Photos/maxum.avif" alt="Maxum 46'" class="active">
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+        </div>
+        <div class="card-body">
+          <div class="card-top-row">
             <div class="yacht-name">Maxum 46'</div>
-            <div class="yacht-price">Prices starting at: $899</div>
-            <a href="detail.html?yacht=maxum" class="btn-details">
-              More Details
-              <span class="btn-details-arrow">›</span>
-            </a>
+            <div class="yacht-stars">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews-text">(24 Reviews)</span>
+            </div>
+          </div>
+          <div class="yacht-specs">46 ft &middot; Up to 10 guests &middot; Sporty open cruiser</div>
+          <div class="yacht-desc">A versatile open-deck cruiser built for Miami's best days. Spacious layout, smooth ride, and plenty of room for your crew to relax and enjoy the sun.</div>
+          <hr class="card-divider">
+          <div class="card-bottom">
+            <div class="yacht-price">
+              <span class="price-amount">$899</span>
+              <span class="price-label">/ starting</span>
+              <span class="price-info">i</span>
+            </div>
+            <a href="#" class="btn-book-card" data-modal>Book Now</a>
           </div>
         </div>
+      </div>
 
-        <!-- FERRETTI 75' -->
-        <div class="yacht-card">
-          <div class="yacht-card-bg" style="background-image: url('Boat Photos/azimut/Photo 26-11-25, 17 48 51 (1).avif')"></div>
-          <div class="yacht-card-gradient"></div>
-          <div class="yacht-card-content">
+      <!-- FERRETTI 75' -->
+      <div class="yacht-card">
+        <div class="card-carousel" data-carousel>
+          <img src="Boat Photos/ferreti.avif" alt="Ferretti 75'" class="active">
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+        </div>
+        <div class="card-body">
+          <div class="card-top-row">
             <div class="yacht-name">Ferretti 75'</div>
-            <div class="yacht-price">Prices starting at: $1,890</div>
-            <a href="detail.html?yacht=ferretti" class="btn-details">
-              More Details
-              <span class="btn-details-arrow">›</span>
-            </a>
+            <div class="yacht-stars">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews-text">(42 Reviews)</span>
+            </div>
+          </div>
+          <div class="yacht-specs">75 ft &middot; Up to 20 guests &middot; Premium luxury yacht</div>
+          <div class="yacht-desc">Italian craftsmanship meets Miami glamour on this 75-foot Ferretti. Expansive decks, premium interiors, and world-class service for an elite charter experience.</div>
+          <hr class="card-divider">
+          <div class="card-bottom">
+            <div class="yacht-price">
+              <span class="price-amount">$1,890</span>
+              <span class="price-label">/ starting</span>
+              <span class="price-info">i</span>
+            </div>
+            <a href="#" class="btn-book-card" data-modal>Book Now</a>
           </div>
         </div>
+      </div>
 
-        <!-- 55' AZIMUT -->
-        <div class="yacht-card">
-          <div class="yacht-card-bg" style="background-image: url('Boat Photos/aqua /h7nLfhrw.avif')"></div>
-          <div class="yacht-card-gradient"></div>
-          <div class="yacht-card-content">
+      <!-- 55' AZIMUT -->
+      <div class="yacht-card">
+        <div class="card-carousel" data-carousel>
+          <img src="Boat Photos/azimut.avif" alt="55' Azimut" class="active">
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+        </div>
+        <div class="card-body">
+          <div class="card-top-row">
             <div class="yacht-name">55' Azimut</div>
-            <div class="yacht-price">Prices starting at: $1,400</div>
-            <a href="detail.html?yacht=azimut" class="btn-details">
-              More Details
-              <span class="btn-details-arrow">›</span>
-            </a>
+            <div class="yacht-stars">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews-text">(31 Reviews)</span>
+            </div>
+          </div>
+          <div class="yacht-specs">55 ft &middot; Up to 15 guests &middot; Elegant performance cruiser</div>
+          <div class="yacht-desc">Sleek lines and powerful performance define this Azimut beauty. Ideal for those who want speed, style, and sophistication in one unforgettable package.</div>
+          <hr class="card-divider">
+          <div class="card-bottom">
+            <div class="yacht-price">
+              <span class="price-amount">$1,400</span>
+              <span class="price-label">/ starting</span>
+              <span class="price-info">i</span>
+            </div>
+            <a href="#" class="btn-book-card" data-modal>Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 90' ACGUA ALBERTI -->
+      <div class="yacht-card">
+        <div class="card-carousel" data-carousel>
+          <img src="Boat Photos/acgua-alberti.avif" alt="90' Acgua Alberti" class="active">
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+        </div>
+        <div class="card-body">
+          <div class="card-top-row">
+            <div class="yacht-name">90' Acgua Alberti</div>
+            <div class="yacht-stars">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="reviews-text">(48 Reviews)</span>
+            </div>
+          </div>
+          <div class="yacht-specs">90 ft &middot; Up to 30 guests &middot; Grand luxury superyacht</div>
+          <div class="yacht-desc">The crown jewel of our fleet. This 90-foot superyacht delivers an unmatched experience with lavish amenities, vast entertaining space, and commanding presence.</div>
+          <hr class="card-divider">
+          <div class="card-bottom">
+            <div class="yacht-price">
+              <span class="price-amount">$2,500</span>
+              <span class="price-label">/ starting</span>
+              <span class="price-info">i</span>
+            </div>
+            <a href="#" class="btn-book-card" data-modal>Book Now</a>
           </div>
         </div>
       </div>
@@ -890,6 +1055,22 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
+    });
+
+    // Card carousels
+    document.querySelectorAll('[data-carousel]').forEach(carousel => {
+      const imgs = carousel.querySelectorAll('img');
+      if (imgs.length <= 1) return;
+      let current = 0;
+
+      function show(index) {
+        imgs[current].classList.remove('active');
+        current = (index + imgs.length) % imgs.length;
+        imgs[current].classList.add('active');
+      }
+
+      carousel.querySelector('.prev').addEventListener('click', () => show(current - 1));
+      carousel.querySelector('.next').addEventListener('click', () => show(current + 1));
     });
   </script>
 
