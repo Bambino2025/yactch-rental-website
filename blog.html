@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Private Boat Tours in Miami | Sightseeing Yacht Charters | Miami Yacht Collective</title>
-  <meta name="description" content="Discover Miami from the water with a private boat tour. Cruise past Star Island, Fisher Island, and the Miami skyline on a luxury yacht. Tours for 8-30 guests departing from Miami Beach Marina.">
-  <meta name="keywords" content="private boat tour Miami, Miami sightseeing boat tour, yacht tour Miami, Star Island boat tour Miami, Miami boat cruise, Biscayne Bay yacht tour">
+  <title>Blog — Miami Yacht Collective | Yacht Rental Tips & Miami Boating Guides</title>
+  <meta name="description" content="Read expert tips on yacht rentals, boat charters, and luxury experiences in Miami. Planning guides for yacht parties, bachelorettes, and Biscayne Bay adventures.">
+  <meta name="keywords" content="yacht rental Miami blog, Miami boating tips, yacht party planning, Biscayne Bay guide, boat charter Miami, bachelorette yacht Miami">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Private Boat Tours in Miami | Sightseeing Yacht Charters | Miami Yacht Collective">
-  <meta property="og:description" content="Discover Miami from the water with a private boat tour. Cruise past Star Island, Fisher Island, and the Miami skyline on a luxury yacht. Tours for 8-30 guests departing from Miami Beach Marina.">
+  <meta property="og:title" content="Blog — Miami Yacht Collective | Yacht Rental Tips & Miami Boating Guides">
+  <meta property="og:description" content="Read expert tips on yacht rentals, boat charters, and luxury experiences in Miami. Planning guides for yacht parties, bachelorettes, and Biscayne Bay adventures.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://miamiyachtcollective.com/MiamiYachtCollective%20Logo.png">
-  <link rel="canonical" href="https://miamiyachtcollective.com/boat-tours-miami.html">
+  <link rel="canonical" href="https://miamiyachtcollective.com/blog.html">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -28,23 +28,27 @@
     :root {
       --cyan: #00BFFF;
       --cyan-hover: #00a8e0;
+      --dark-overlay: rgba(40, 20, 90, 0.65);
       --navy: #0D1B4B;
       --heading-font: 'Barlow Condensed', sans-serif;
       --yacht-name-font: 'Bebas Neue', sans-serif;
       --body-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --card-radius: 20px;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: var(--body-font);
-      background: #f5f5f5;
-      color: #1a1a2e;
+      color: #fff;
+      background: var(--navy);
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
     }
 
-    /* ───────────── TOP NAVBAR ───────────── */
+    /* ───────────── NAVBAR ───────────── */
     .navbar {
       position: fixed;
       top: 0;
@@ -69,7 +73,6 @@
       align-items: center;
       gap: 10px;
       margin: -20px 0;
-      text-decoration: none;
     }
 
     .navbar-logo img {
@@ -107,7 +110,7 @@
       box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
     }
 
-    .btn-book-nav {
+    .btn-book {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -125,109 +128,95 @@
       transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
     }
 
-    .btn-book-nav:hover {
+    .btn-book:hover {
       background: var(--cyan-hover);
       transform: translateY(-1px);
       box-shadow: 0 4px 18px rgba(0, 191, 255, 0.35);
     }
 
-    /* ───────────── DETAIL CONTENT ───────────── */
-    .detail-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-      padding-top: 120px;
+    /* ───────────── BLOG SECTION ───────────── */
+    .blog-section {
+      padding: 140px 40px 100px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .detail-card {
+    .blog-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--heading-font);
+      font-weight: 900;
+      font-size: clamp(120px, 18vw, 260px);
+      color: #fff;
+      opacity: 0.04;
+      text-transform: uppercase;
+      letter-spacing: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .blog-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .blog-card {
       background: #fff;
       border-radius: 16px;
-      padding: 44px 48px;
-      margin-top: 28px;
-      margin-bottom: 48px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      padding: 28px 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease;
     }
 
-    .detail-name {
-      font-family: var(--yacht-name-font);
-      font-weight: 400;
-      font-size: clamp(40px, 5vw, 56px);
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    }
+
+    .blog-card-title {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 20px;
       color: var(--navy);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      line-height: 1.05;
-      margin-bottom: 24px;
+      margin-bottom: 10px;
+      line-height: 1.3;
     }
 
-    .detail-description {
-      font-size: 16px;
-      color: #444;
-      line-height: 1.7;
-      max-width: 680px;
-      margin-bottom: 32px;
-    }
-
-    .detail-description p {
+    .blog-card-excerpt {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
       margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    .detail-description p:last-child {
-      margin-bottom: 0;
-    }
-
-    .btn-fleet {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--navy);
-      color: #fff;
-      font-weight: 700;
-      font-size: 18px;
+    .blog-card-link {
       font-family: var(--heading-font);
-      letter-spacing: 0.5px;
-      border: none;
-      border-radius: 999px;
-      padding: 14px 36px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-      margin-right: 14px;
-    }
-
-    .btn-fleet:hover {
-      background: #091438;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(13, 27, 75, 0.4);
-    }
-
-    .btn-book-detail {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--cyan);
-      color: #fff;
       font-weight: 700;
-      font-size: 18px;
-      font-family: var(--heading-font);
-      letter-spacing: 0.5px;
-      border: none;
-      border-radius: 999px;
-      padding: 14px 36px;
-      cursor: pointer;
+      font-size: 14px;
+      color: var(--cyan);
       text-decoration: none;
-      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      transition: color 0.2s ease;
     }
 
-    .btn-book-detail:hover {
-      background: var(--cyan-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0, 191, 255, 0.4);
+    .blog-card-link::after {
+      content: ' \2192';
     }
 
-    .cta-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
+    .blog-card-link:hover {
+      color: var(--cyan-hover);
     }
 
     /* ───────────── BOOKING MODAL ───────────── */
@@ -344,17 +333,43 @@
 
     /* ───────────── RESPONSIVE ───────────── */
     @media (max-width: 768px) {
-      .navbar { padding: 16px 20px; }
-      .detail-content { padding: 0 20px; padding-top: 100px; }
-      .detail-card { padding: 28px 24px; }
+      .navbar {
+        padding: 16px 20px;
+      }
+
+      .blog-section {
+        padding: 120px 20px 60px;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .blog-watermark {
+        font-size: 80px;
+        letter-spacing: 6px;
+      }
     }
 
     @media (max-width: 480px) {
-      .detail-card { padding: 24px 20px; }
-      .btn-gallery-nav { padding: 10px 20px; font-size: 14px; }
-      .btn-book-nav { padding: 10px 20px; font-size: 14px; }
-      .cta-buttons { flex-direction: column; }
-      .btn-fleet, .btn-book-detail { width: 100%; justify-content: center; }
+      .blog-section {
+        padding: 110px 16px 48px;
+      }
+
+      .blog-grid {
+        gap: 14px;
+      }
+
+      .btn-gallery-nav {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+
+      .btn-book {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
@@ -368,29 +383,47 @@
     <div class="navbar-actions">
       <a href="blog.html" class="btn-gallery-nav">Blog</a>
       <a href="gallery.html" class="btn-gallery-nav">Gallery</a>
-      <a href="#" class="btn-book-nav" data-modal>Book</a>
+      <a href="#" class="btn-book" data-modal>Book</a>
     </div>
   </nav>
 
-  <!-- DETAIL CONTENT -->
-  <div class="detail-content">
-    <div class="detail-card">
-      <h1 class="detail-name">Private Boat Tours in Miami</h1>
+  <!-- ═══════════ BLOG ═══════════ -->
+  <section class="blog-section">
+    <div class="blog-watermark">Blog</div>
+    <div class="blog-grid">
 
-      <div class="detail-description">
-        <p>There is no better way to experience Miami than from the water. A private boat tour with Miami Yacht Collective takes you past the city's most iconic landmarks aboard a luxury yacht reserved exclusively for your group. Cruise through the crystal-clear waters of Biscayne Bay and take in the breathtaking views of the Miami skyline, the celebrity mansions of Star Island, the exclusive shores of Fisher Island, and the elegant Venetian Islands. Watch massive cruise ships glide through the Port of Miami, spot dolphins and sea turtles in their natural habitat, and feel the warm ocean breeze as your captain navigates the most scenic routes South Florida has to offer. Whether you choose a sun-soaked daytime cruise or a golden-hour sunset tour, every moment on the water is one you will remember.</p>
+      <article class="blog-card">
+        <h2 class="blog-card-title">How to Plan the Perfect Yacht Party in Miami</h2>
+        <p class="blog-card-excerpt">Everything you need to know about hosting an unforgettable yacht party on Miami's beautiful waters.</p>
+        <a href="blog/how-to-plan-a-yacht-party-miami.html" class="blog-card-link">Read More</a>
+      </article>
 
-        <p>Our fleet ranges from 46-foot sport yachts to 90-foot luxury vessels, accommodating intimate groups of 8 guests up to larger parties of 30. Every tour is fully private and completely customizable — you set the pace, choose the route, and decide how long you want to stay on the water. Departing from Miami Beach Marina, our experienced captains know Biscayne Bay inside and out, ensuring you see the best sights while enjoying a smooth, comfortable ride. Private boat tours are perfect for tourists discovering Miami for the first time, couples celebrating a special occasion, families looking for an unforgettable outing, or groups of friends wanting a unique experience far from the crowded streets of South Beach.</p>
+      <article class="blog-card">
+        <h2 class="blog-card-title">Best Places to Anchor in Biscayne Bay</h2>
+        <p class="blog-card-excerpt">Discover the most stunning anchor spots in Biscayne Bay for swimming, snorkeling, and relaxing.</p>
+        <a href="blog/best-places-to-anchor-biscayne-bay.html" class="blog-card-link">Read More</a>
+      </article>
 
-        <p>Ready to see Miami from its most stunning angle? Browse our fleet to find the perfect yacht for your private tour, then call or WhatsApp us to book your departure. Miami Yacht Collective makes planning effortless — just tell us your group size, preferred date, and any special requests, and we will handle the rest.</p>
-      </div>
+      <article class="blog-card">
+        <h2 class="blog-card-title">Miami Yacht Charter vs. Boat Rental: What's the Difference?</h2>
+        <p class="blog-card-excerpt">Understanding the key differences to choose the right option for your Miami boating experience.</p>
+        <a href="blog/miami-yacht-charter-vs-boat-rental.html" class="blog-card-link">Read More</a>
+      </article>
 
-      <div class="cta-buttons">
-        <a href="index.html#fleet" class="btn-fleet">View Our Fleet</a>
-        <button class="btn-book-detail" data-modal>Book Now</button>
-      </div>
+      <article class="blog-card">
+        <h2 class="blog-card-title">How Much Does a Yacht Rental in Miami Cost?</h2>
+        <p class="blog-card-excerpt">A complete pricing guide for yacht rentals in Miami — from affordable day charters to luxury superyachts.</p>
+        <a href="blog/how-much-does-yacht-rental-miami-cost.html" class="blog-card-link">Read More</a>
+      </article>
+
+      <article class="blog-card">
+        <h2 class="blog-card-title">Planning a Bachelorette Yacht Party in Miami</h2>
+        <p class="blog-card-excerpt">The ultimate guide to throwing a bachelorette party on a yacht in Miami.</p>
+        <a href="blog/miami-bachelorette-yacht-party.html" class="blog-card-link">Read More</a>
+      </article>
+
     </div>
-  </div>
+  </section>
 
   <!-- ═══════════ BOOKING MODAL ═══════════ -->
   <div class="modal-backdrop" id="modalBackdrop">
@@ -408,20 +441,20 @@
   <script>
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
-    let navTicking = false;
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      if (!navTicking) {
+      if (!ticking) {
         window.requestAnimationFrame(() => {
           navbar.classList.toggle('scrolled', window.scrollY > 60);
-          navTicking = false;
+          ticking = false;
         });
-        navTicking = true;
+        ticking = true;
       }
     });
 
     // Booking modal
     const backdrop = document.getElementById('modalBackdrop');
-    const modalCloseBtn = document.getElementById('modalClose');
+    const modalClose = document.getElementById('modalClose');
 
     function openModal(e) {
       e.preventDefault();
@@ -438,14 +471,14 @@
       btn.addEventListener('click', openModal);
     });
 
-    modalCloseBtn.addEventListener('click', closeModal);
+    modalClose.addEventListener('click', closeModal);
 
     backdrop.addEventListener('click', (e) => {
       if (e.target === backdrop) closeModal();
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape' && backdrop.classList.contains('active')) closeModal();
     });
   </script>
 

@@ -48,4 +48,28 @@
     <loc>https://miamiyachtcollective.com/corporate-yacht-miami.html</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://miamiyachtcollective.com/blog.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://miamiyachtcollective.com/blog/how-to-plan-a-yacht-party-miami.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://miamiyachtcollective.com/blog/best-places-to-anchor-biscayne-bay.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://miamiyachtcollective.com/blog/miami-yacht-charter-vs-boat-rental.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://miamiyachtcollective.com/blog/how-much-does-yacht-rental-miami-cost.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://miamiyachtcollective.com/blog/miami-bachelorette-yacht-party.html</loc>
+    <priority>0.7</priority>
+  </url>
 </urlset>
