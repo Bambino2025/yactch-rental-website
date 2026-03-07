@@ -10,7 +10,7 @@
   <meta property="og:title" content="Miami Yacht Collective — Luxury Yacht Rental & Catering">
   <meta property="og:description" content="Book a luxury yacht in Miami for parties, celebrations, and sunset cruises. Private charters with catering available. Call or WhatsApp to reserve.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="MiamiYachtCollective Logo.png">
+  <meta property="og:image" content="https://miamiyachtcollective.com/MiamiYachtCollective%20Logo.png">
   <link rel="canonical" href="https://miamiyachtcollective.com/">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -510,6 +510,79 @@
       box-shadow: 0 4px 14px rgba(13, 27, 75, 0.25);
     }
 
+    /* ───────────── FAQ SECTION ───────────── */
+    .faq-section {
+      background: #F8F8F6;
+      padding: 80px 40px 100px;
+    }
+
+    .faq-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-heading {
+      font-family: var(--heading-font);
+      font-weight: 800;
+      font-size: clamp(32px, 4vw, 44px);
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      font-family: var(--heading-font);
+      font-weight: 700;
+      font-size: 18px;
+      color: #1a1a2e;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: color 0.2s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--cyan);
+    }
+
+    .faq-question .faq-icon {
+      flex-shrink: 0;
+      font-size: 22px;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      padding: 0 0 24px;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.8;
+    }
+
     /* ───────────── FOOTER ───────────── */
     .footer {
       background: linear-gradient(180deg, #050A1A 0%, #000000 100%);
@@ -784,6 +857,10 @@
         gap: 12px;
         text-align: center;
       }
+
+      .faq-section {
+        padding: 48px 20px 60px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -817,8 +894,10 @@
     "image": "MiamiYachtCollective Logo.png",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Miami",
+      "streetAddress": "300 Alton Rd",
+      "addressLocality": "Miami Beach",
       "addressRegion": "FL",
+      "postalCode": "33139",
       "addressCountry": "US"
     },
     "geo": {
@@ -869,7 +948,81 @@
       "reviewCount": "182"
     },
     "sameAs": [
-      "https://wa.me/17876645040"
+      "https://wa.me/17876645040",
+      "https://share.google/Lfm6WyF1WudiQypgv",
+      "https://www.instagram.com/miamiyachtcollective/"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a yacht rental in Miami cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our Miami yacht rentals start at $699 for a half-day charter. Pricing depends on the yacht size, duration, and time of year. Our fleet ranges from 46-foot cruisers to a 90-foot superyacht, with rates from $699 to $2,500+ per outing. Contact us for a personalized Miami yacht rental quote tailored to your group and occasion."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many people can a Miami yacht charter fit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our Miami yacht charters accommodate between 8 and 30 guests depending on the vessel. Smaller boats like the Maxum 46' are great for intimate Miami gatherings of up to 10 guests, while our 90-foot Acgua Alberti superyacht is perfect for large Miami yacht parties with up to 30 guests."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer yacht catering services in Miami?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Miami Yacht Collective offers premium onboard catering for all yacht charters in Miami. From gourmet appetizers and fresh seafood to custom menus and premium bar packages, our Miami yacht catering service ensures your guests enjoy an elevated dining experience on the water."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is included in a Miami boat charter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every Miami boat charter with Miami Yacht Collective includes a licensed captain, fuel, ice, bluetooth sound system, and all safety equipment. Some of our Miami yacht rentals also include extras like jet skis, snorkeling gear, and water toys. Catering and premium beverage packages are available as add-ons."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I rent a yacht for a party in Miami?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely! Yacht parties are one of our most popular experiences in Miami. Whether it's a birthday celebration, bachelorette party, corporate event, or just a fun day with friends, our Miami yacht party packages deliver an unforgettable experience with spacious decks, premium sound systems, and stunning views of the Miami skyline."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where do your yacht charters depart from in Miami?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our Miami yacht charters depart from Miami Beach Marina, located at 300 Alton Rd in Miami Beach. This central location provides easy access to Biscayne Bay, Star Island, Fisher Island, and the open Atlantic."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should I book a yacht rental in Miami?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We recommend booking your Miami yacht rental at least 1-2 weeks in advance, especially during peak season (November through April) and holiday weekends. Popular Miami yacht charter dates fill up quickly. However, we do accommodate last-minute bookings when availability allows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of events are popular on Miami yacht charters?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Miami yacht charters are perfect for birthday parties, bachelorette and bachelor celebrations, corporate team outings, sunset cruises, proposals, anniversaries, holiday parties, and music video shoots. Miami's stunning waterfront scenery and year-round sunshine make every yacht charter event truly special."
+        }
+      }
     ]
   }
   </script>
@@ -927,7 +1080,7 @@
               <span class="price-label">/ starting</span>
               <span class="price-info">i</span>
             </div>
-            <a href="#" class="btn-book-card" data-modal>Book Now</a>
+            <a href="yacht-details.html?yacht=isabella" class="btn-book-card">View Details</a>
           </div>
         </div>
       </div>
@@ -956,7 +1109,7 @@
               <span class="price-label">/ starting</span>
               <span class="price-info">i</span>
             </div>
-            <a href="#" class="btn-book-card" data-modal>Book Now</a>
+            <a href="yacht-details.html?yacht=maxum" class="btn-book-card">View Details</a>
           </div>
         </div>
       </div>
@@ -985,7 +1138,7 @@
               <span class="price-label">/ starting</span>
               <span class="price-info">i</span>
             </div>
-            <a href="#" class="btn-book-card" data-modal>Book Now</a>
+            <a href="yacht-details.html?yacht=ferretti" class="btn-book-card">View Details</a>
           </div>
         </div>
       </div>
@@ -1014,7 +1167,7 @@
               <span class="price-label">/ starting</span>
               <span class="price-info">i</span>
             </div>
-            <a href="#" class="btn-book-card" data-modal>Book Now</a>
+            <a href="yacht-details.html?yacht=azimut" class="btn-book-card">View Details</a>
           </div>
         </div>
       </div>
@@ -1043,7 +1196,7 @@
               <span class="price-label">/ starting</span>
               <span class="price-info">i</span>
             </div>
-            <a href="#" class="btn-book-card" data-modal>Book Now</a>
+            <a href="yacht-details.html?yacht=acgua-alberti" class="btn-book-card">View Details</a>
           </div>
         </div>
       </div>
@@ -1057,10 +1210,57 @@
       <div class="cta-text">
         <h2 class="cta-heading-light">Ready to enjoy the</h2>
         <div class="cta-heading-bold">best experience ?</div>
-        <p class="cta-paragraph">Sail into luxury with Yacht Adventures. From private day cruises to sunset charters and multi-day escapes, we deliver unforgettable experiences on Miami's sparkling waters.</p>
+        <p class="cta-paragraph">Sail into luxury with Miami Yacht Collective. From private day cruises to sunset charters and multi-day escapes, we deliver unforgettable experiences on Miami's sparkling waters.</p>
       </div>
       <div class="cta-button-wrap">
         <a href="#" class="btn-cta-green" data-modal>Book Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FAQ SECTION ═══════════ -->
+  <section class="faq-section" id="faq">
+    <div class="faq-inner">
+      <h2 class="faq-heading">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <button class="faq-question">How much does a yacht rental in Miami cost?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Our Miami yacht rentals start at $699 for a half-day charter. Pricing depends on the yacht size, duration, and time of year. Our fleet ranges from 46-foot cruisers to a 90-foot superyacht, with rates from $699 to $2,500+ per outing. Contact us for a personalized Miami yacht rental quote tailored to your group and occasion.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">How many people can a Miami yacht charter fit?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Our Miami yacht charters accommodate between 8 and 30 guests depending on the vessel. Smaller boats like the Maxum 46' are great for intimate Miami gatherings of up to 10 guests, while our 90-foot Acgua Alberti superyacht is perfect for large Miami yacht parties with up to 30 guests. We'll help you choose the right yacht for your group size.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Do you offer yacht catering services in Miami?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Yes! Miami Yacht Collective offers premium onboard catering for all yacht charters in Miami. From gourmet appetizers and fresh seafood to custom menus and premium bar packages, our Miami yacht catering service ensures your guests enjoy an elevated dining experience on the water. Let us know your preferences when booking.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What is included in a Miami boat charter?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Every Miami boat charter with Miami Yacht Collective includes a licensed captain, fuel, ice, bluetooth sound system, and all safety equipment. Some of our Miami yacht rentals also include extras like jet skis, snorkeling gear, and water toys. Catering and premium beverage packages are available as add-ons to make your Miami charter truly unforgettable.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Can I rent a yacht for a party in Miami?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Absolutely! Yacht parties are one of our most popular experiences in Miami. Whether it's a birthday celebration, bachelorette party, corporate event, or just a fun day with friends, our Miami yacht party packages deliver an unforgettable experience. Our fleet offers spacious decks, premium sound systems, and stunning views of the Miami skyline and Biscayne Bay.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Where do your yacht charters depart from in Miami?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Our Miami yacht charters depart from Miami Beach Marina, located at 300 Alton Rd in Miami Beach. This central location provides easy access to Biscayne Bay, Star Island, Fisher Island, and the open Atlantic. It's conveniently located near South Beach, making it the perfect starting point for your Miami yacht experience.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">How far in advance should I book a yacht rental in Miami?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>We recommend booking your Miami yacht rental at least 1-2 weeks in advance, especially during peak season (November through April) and holiday weekends. Popular Miami yacht charter dates fill up quickly. However, we do accommodate last-minute bookings when availability allows. Call or WhatsApp us to check current Miami yacht availability.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What types of events are popular on Miami yacht charters?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Miami yacht charters are perfect for a wide range of events including birthday parties, bachelorette and bachelor celebrations, corporate team outings, sunset cruises, proposals, anniversaries, holiday parties, and music video shoots. Miami's stunning waterfront scenery and year-round sunshine make every yacht charter event truly special. Contact us to plan your Miami yacht event.</p></div>
       </div>
     </div>
   </section>
@@ -1073,7 +1273,7 @@
     </div>
     <hr class="footer-divider">
     <div class="footer-bar">
-      <div class="footer-bar-brand">Yacht Adventures</div>
+      <div class="footer-bar-brand">Miami Yacht Collective</div>
       <div class="footer-bar-info"><a href="tel:+17876645040">(787) 664-5040</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;Miami, Florida</div>
       <div class="footer-bar-wa"><a href="https://wa.me/17876645040">WhatsApp Us</a></div>
     </div>
@@ -1134,6 +1334,14 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        item.classList.toggle('open');
+      });
     });
 
     // Card carousels

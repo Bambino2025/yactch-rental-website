@@ -23,7 +23,7 @@ python3 -m http.server 8000
 ## File Structure
 
 - `index.html` — Landing page: hero, fleet grid, CTA sections, footer, booking modal
-- `detail.html` — Yacht detail: image carousel, specs, booking modal. Yacht selected via `?yacht=` param
+- `yacht-details.html` — Yacht detail: image carousel, specs, booking modal. Yacht selected via `?yacht=` param
 - `Boat Photos/` — Yacht images in `.avif` format
 - `MiamiYachtCollective Logo.png` — Navbar logo
 
@@ -39,7 +39,7 @@ Both pages are **self-contained** (CSS + JS inlined). No shared files. Booking m
 | `azimut` | Azimut |
 | `acgua-alberti` | Acgua Alberti |
 
-Links format: `detail.html?yacht=<key>`
+Links format: `yacht-details.html?yacht=<key>`
 
 ## Design System
 ```css
