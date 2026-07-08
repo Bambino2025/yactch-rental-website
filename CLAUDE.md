@@ -4,9 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Miami Yacht Collective** — A static yacht rental lead-generation website.
-Goal: Convert visitors into booking leads via Call or WhatsApp.
-No build tools, no frameworks, no package manager. Pure HTML/CSS/JS served directly from files.
+**Miami Yacht Collective** — A static yacht rental lead-generation website for Miami.
+- **Domain**: `https://miamiyachtcollective.com`
+- **Goal**: Convert visitors into booking leads via Call or WhatsApp. No backend, no forms, no payment processing.
+- **Origin**: Migrated from a Webflow "YachtLux" template. Currently in polish phase.
+- **Stack**: Pure HTML/CSS/JS — no build tools, no frameworks. The `package.json` and `app/` directory contain an unused Next.js setup; the live site is the root HTML files served statically.
 
 ## Dev Server
 
@@ -15,86 +17,70 @@ python3 -m http.server 8000
 # Open http://localhost:8000
 ```
 
-## Business Context
+## Architecture
 
-- **Primary CTA**: Every "Book" button triggers a modal with two options:
-  - Call: (787) 664-5040
-  - WhatsApp: links to wa.me/17876645040
-- **Conversion goal**: Drive phone/WhatsApp contact — that IS the booking flow.
-- **No backend**: No forms, no database, no payment processing. Intentionally lead-gen only.
-- **Domain**: `https://miamiyachtcollective.com`
-- **Social**: Instagram at `https://www.instagram.com/miamiyachtcollective/`
+### Two Layers (only the static layer is live)
 
----
+1. **Static HTML (root)** — The actual production site. Each page is a standalone `.html` file with inline CSS for the booking modal, Webflow CSS (`public/css/`), and Webflow JS (`public/js/`).
+2. **Next.js app (`app/`)** — Wraps the static HTML via `StaticPage` component that reads from `app/_static-pages/`. Not currently deployed or used. Ignore unless explicitly asked.
 
-## Current Phase: Polish & Perfect
+### Asset Locations
 
-The site redesign (migrated from a Webflow "YachtLux" template) is complete. We are now editing and perfecting the website — fixing visuals, tweaking layouts, improving content, and ensuring everything looks great before launch.
+- `public/css/` — Webflow stylesheets (`miami-yacht-collective.webflow.css`, `normalize.css`, `webflow.css`)
+- `public/js/` — `webflow.js` (Webflow runtime), `tracking.js` (GA4 event tracking)
+- `public/images/` — Template images (backgrounds, avatars, icons) in `.avif`/`.svg`
+- `public/photos/` — Yacht-specific photo galleries organized by boat (e.g., `ferretti-75/`, `isabella-48/`)
+- `public/videos/` — Hero and section background videos (`.mp4`, `.webm` with poster `.jpg`)
+- `Boat Photos/` — Source/legacy yacht photos (`.avif`, `.jpg`)
 
-### Site Structure
+### Key Pattern: Booking Modal
 
-| Page | File | Purpose |
-|------|------|---------|
-| Homepage | `index.html` | Hero, fleet grid (9 yachts), FAQ, CTA sections |
-| Isabella 48' | `isabella.html` | Yacht detail page |
-| Maxum 46' | `maxum.html` | Yacht detail page |
-| Ferretti 75' | `ferretti.html` | Yacht detail page |
-| 55' Azimut | `azimut.html` | Yacht detail page |
-| 90' Acgua Alberti | `acgua-alberti.html` | Yacht detail page |
-| 25' Yamaha 255XD | `yamaha-255xd.html` | Yacht detail page (heavy gallery) |
-| 65' Azimut L'chaim | `azimut-lchaim.html` | Yacht detail page (heavy gallery) |
-| 90' Deep Blue | `deep-blue.html` | Yacht detail page (heavy gallery) |
-| 62' Anvera | `anvera.html` | Yacht detail page (heavy gallery) |
+Every page must include the booking modal markup and JS inline. It's not in an external file — it's copy-pasted into each HTML page's `<head>` (styles) and `<body>` (markup + script).
+
+- CTA buttons use `data-modal` attribute to trigger the modal
+- Modal offers: Call (787) 664-5040 or WhatsApp (wa.me/17876645040)
+- `public/js/tracking.js` tracks `modal_open`, `call_click`, `whatsapp_click` via GA4
+
+### SEO Validation
+
+- `seo-reference.json` — Ground truth for titles, meta descriptions, headings, images, and links per page
+- `seo_validate.py` — Validates HTML files in an `output/` directory against `seo-reference.json`
+- Run: `python3 seo_validate.py` (expects files in `output/` subdirectory)
+
+## Pages
+
+| Page | File | Notes |
+|------|------|-------|
+| Homepage | `index.html` | Hero video, fleet grid (9 yachts), FAQ, CTA |
+| Yacht detail pages | `isabella.html`, `maxum.html`, `ferretti.html`, `azimut.html`, `acgua-alberti.html`, `azimut-lchaim.html`, `deep-blue.html`, `anvera.html`, `axopar-brabus.html` | Photo galleries, specs, booking CTAs |
 | Gallery | `gallery.html` | Photo grid with lightbox |
-| Blog | `blog.html` | Blog listing page |
-| Blog articles | `blog/*.html` | 5 blog posts (use `../` prefix for assets) |
-| About | `about.html` | About page |
+| Blog | `blog.html` | Blog listing |
+| About | `about.html` | Company info |
 | Services | `services.html` | Services overview |
-| Contact | `contact.html` | Contact page |
+| Contact | `contact.html` | Contact info |
 | Booking | `booking.html` | Booking page |
-
-### SEO Rules
-
-Do not change these without explicit instruction:
-- `<title>` tags
-- `<meta name="description">` content
-- `<h1>`, `<h2>`, `<h3>` text
-- Image `src` and `alt` attributes
-- Internal link `href` values
-- Canonical URLs
-
-### Booking Modal — Required on Every Page
-
-Every page MUST include the booking modal. This is the business's conversion mechanism.
-
-- Any "Book Now" / "Charter Now" / CTA button must have the `data-modal` attribute
-- Modal offers two options: Call (787) 664-5040 or WhatsApp (wa.me/17876645040)
-- The modal markup and JS must be present on every single page
-
----
-
-## Fleet Data (Reference)
-
-| Yacht | File | Price | Guests |
-|-------|------|-------|--------|
-| Isabella 48' W/ Jetski | `isabella.html` | $1,100 | 13 |
-| Maxum 46' | `maxum.html` | $899 | 10 |
-| Ferretti 75' | `ferretti.html` | $1,890 | 20 |
-| 55' Azimut | `azimut.html` | $1,400 | 15 |
-| 90' Acgua Alberti | `acgua-alberti.html` | $2,500 | 30 |
-| 25' Yamaha 255XD | `yamaha-255xd.html` | $TBD | 10 |
-| 65' Azimut L'chaim | `azimut-lchaim.html` | TBD | 20 |
-| 90' Deep Blue W/ Jacuzzi | `deep-blue.html` | $2,500 | 30 |
-| 62' Anvera | `anvera.html` | $1,200 | 15 |
+| Fleet listing | `yacht.html` | Indexable fleet page (de-noindexed 2026-07-08) |
+| SEO landing pages | `yacht-party-miami.html`, `birthday-yacht-party-miami.html`, `bachelorette-yacht-party-miami.html`, `private-sunset-cruise-miami.html`, `miami-yacht-rental-prices.html` | Intent pages targeting party/sunset/price searches. Keep facts in sync with llms.txt |
+| Yamaha detail | `yamaha-255xd.html` | 10th fleet vessel (25' jet boat, $1,000/4hr) |
+| Error pages | `401.html`, `404.html` | Error states |
+| Blog articles | None yet (no `blog/` directory with posts) | — |
 
 ## Do NOT
 
 - Add npm, webpack, or any build step
 - Rename any HTML files
-- Change any `<title>`, `<meta description>`, heading text, image alt, or link href
-- Break the booking modal flow (Call + WhatsApp)
-- Replace `.avif` or existing image references with different paths
-- Modify `sitemap.xml`
+- Change any `<title>`, `<meta description>`, heading text (`h1`/`h2`/`h3`), image `alt` text, image `src` paths, or internal link `href` values without explicit instruction (2026-07-08: titles/metas/schema were deliberately optimized in an owner-requested SEO pass — see SEO-NOTES.md before "fixing" them back)
+- Break the booking modal flow (Call + WhatsApp must remain on every page)
+- Replace existing `.avif` or image references with different paths
+- Modify `sitemap.xml` without keeping it in sync with the real page set (new pages must be added)
+- State unverified amenities in copy (BYOB, fuel, catering, towels) — only captain+crew included, 13-guest max, Miami River departure and per-yacht prices are owner-confirmed facts
+- `git add -A` — the working tree carries intentional uncommitted deletions (assets moved to untracked `public/` for a dormant Next.js experiment); stage files explicitly
 - Add payment forms, login, or backend functionality
-- Use Webflow's CMS URL structure (like `/yachts/slug`) — keep flat file structure
 
+## Image Path Gotcha
+
+Production runs on case-sensitive Linux. File names must be lowercase and URL-safe. Past bugs were caused by case mismatches between HTML `src` attributes and actual filenames on disk (macOS is case-insensitive, Linux is not).
+
+## Social
+
+- Instagram: `https://www.instagram.com/miamiyachtcollective/`
