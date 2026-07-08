@@ -53,3 +53,4 @@ The adversarial verifier found: stale duplicate og:description tags (first-tag-w
 - Titles run 77–91 chars (keyword+price front-loaded, brand suffix truncates in SERPs) — deliberate
 - Email in schema/llms.txt is still sebastian@mcaiconsulting.com — action plan item 15 (business-domain email) still open
 - Off-site work still owned by Sebastian: GBP services/photos/reviews cadence, Yelp/TripAdvisor listings, Bing Places/Apple Business Connect, 305/786 number
+- DONE later same day: Google Search Console property https://miamiyachtcollective.com/ added under sebastian@mcaiconsulting.com (auto-verified via existing DNS record) and sitemap.xml resubmitted 2026-07-08 — GSC read it immediately: Status Success, 22 discovered pages. Check Pages report in ~1-2 weeks for indexing coverage of the 6 new pages.
