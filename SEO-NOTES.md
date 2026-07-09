@@ -4,6 +4,20 @@ Running log so future sessions build on this instead of repeating it. One lesson
 
 ---
 
+## 2026-07-09 session (Claude, design overhaul — branch `design-overhaul`)
+
+### What shipped (commit 1210d8f, NOT yet merged to main)
+"Midnight & Champagne" premium theme: new `css/myc-theme.css` override layer loaded after the Webflow CSS on all 25 pages (detail_*.html, 401, logo-preview skipped). Midnight navy / warm ivory / champagne gold, Cormorant Garamond display serif + Inter Tight body. NO changes to titles, metas, headings text, alt text, image srcs, hrefs, schema, or URLs — the 2026-07-08 SEO pass is fully preserved.
+
+### Key mechanics for future sessions
+- The theme wins over per-page inline `<style>` blocks via specificity prefixes: `html .modal-*` (head styles), `body .myc-*` / `body .home-faq-*` (body styles), and `!important` only where inline `style=""` attributes had to be beaten (`.yacht-page-header`, `.footer-nap-block`, booking/contact pill CTAs targeted by `a[style*="#25D366"]`).
+- Fixed pre-existing bug: white nav links were invisible on light pages (all pages use the base transparent header). Header is now permanent navy glass.
+- Font loading: webfont.js + WebFont.load (Lato/Aclonica/Inter Tight) replaced sitewide with one `display=swap` css2 link (Cormorant Garamond + Inter Tight). Any NEW page must copy the new head pattern.
+- Booking modal upgraded on all pages: role=dialog, aria-modal, focus trap/restore; open() focuses close btn after a 60ms rAF delay (visibility transition race).
+- Local QA: expected console 404s remain /videos/* and /_vercel/insights only. Axopar page has a pre-existing Webflow "improperly configured forms" warning (template artifact).
+
+---
+
 ## 2026-07-08 session (Claude, autonomous SEO run)
 
 ### Lesson: The live site and the local working tree have diverged — trust git, not the filesystem
