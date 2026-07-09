@@ -1,0 +1,520 @@
+/* ============================================================================
+   Miami Yacht Collective — "Midnight & Champagne" design system
+   ----------------------------------------------------------------------------
+   Loaded AFTER the Webflow stylesheets on every page. This layer owns the
+   visual identity: deep midnight navy, warm ivory, muted champagne gold,
+   Cormorant Garamond display serif over Inter Tight.
+   It restyles the existing Webflow markup — no markup or content changes.
+   Selectors prefixed with `html`/`body` deliberately out-rank the per-page
+   inline <style> blocks (booking modal, FAQ, myc-* occasion pages).
+   ========================================================================== */
+
+/* ---------- 1. Tokens ---------------------------------------------------- */
+
+:root {
+  /* brand */
+  --myc-ink: #0c1f35;          /* primary text / dark surfaces */
+  --myc-ink-deep: #081524;     /* footer, benefits, hero scrims */
+  --myc-ivory: #f5f2ea;        /* page background */
+  --myc-paper: #fdfcf9;        /* cards */
+  --myc-gold: #c2a15f;         /* champagne accent (large/decorative) */
+  --myc-gold-deep: #a5833f;    /* hover / borders */
+  --myc-gold-text: #8a6d33;    /* accessible gold for small text on ivory */
+  --myc-slate: #55677c;        /* secondary text on light */
+  --myc-mist: #b9c3ce;         /* secondary text on dark */
+  --myc-hairline: #e2dccb;     /* light dividers */
+  --myc-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --myc-sans: "Inter Tight", system-ui, sans-serif;
+
+  /* remap the Webflow template variables to the new palette */
+  --background: var(--myc-ivory);
+  --neutral: var(--myc-ink);
+  --_neutral-color---50: #eae4d6;
+  --_neutral-color---100: var(--myc-mist);
+  --_neutral-color---200: #64758a;
+  --_neutral-color---300: var(--myc-slate);
+  --_neutral-color---400: #33465c;
+  --_neutral-color---600: #0a1a2c;
+  --_neutral-color---700: #071322;
+  --_neutral-color---800: #050d18;
+  --_neutral-color---900: #03080f;
+}
+
+/* ---------- 2. Base typography ------------------------------------------ */
+
+body {
+  font-family: var(--myc-sans);
+  color: var(--myc-ink);
+  background-color: var(--myc-ivory);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3,
+.home-hero-title,
+.home-about-title,
+.home-fleet-title,
+.testimonial-title,
+.yacht-details-name,
+.overview-title,
+.modal-heading {
+  font-family: var(--myc-serif);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+h1 { font-size: clamp(3rem, 6.5vw, 5.25rem); line-height: 1.04; }
+h2 { font-size: clamp(2.25rem, 4.5vw, 3.4rem); line-height: 1.1; }
+h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.2; }
+
+/* Lato appears in three legacy template rules — retire it */
+.w-checkbox, .w-form-label, .w-embed-youtubevideo:empty {
+  font-family: var(--myc-sans);
+}
+
+::selection { background: var(--myc-gold); color: var(--myc-ink-deep); }
+
+/* ---------- 3. Header / navigation --------------------------------------- */
+
+/* Navy glass bar on every page: readable over video heroes AND light pages
+   (the template shipped white links over white backgrounds). */
+.header-section {
+  background: linear-gradient(180deg, rgba(8, 21, 36, 0.92), rgba(8, 21, 36, 0.78));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.header-nav-link {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.header-nav-link:hover,
+.header-nav-link.w--current {
+  color: #fff;
+  -webkit-text-decoration-color: var(--myc-gold);
+  text-decoration-color: var(--myc-gold);
+}
+
+/* mobile menu panel + hamburger */
+.w-nav-overlay, .w-nav[data-collapse="medium"] .w-nav-menu { background: transparent; }
+.w-nav-overlay .header-menu-block,
+.w-nav-overlay nav.header-menu {
+  background-color: var(--myc-ink-deep);
+}
+/* hamburger: transparent gold-hairline button, white bars */
+.header-button,
+.header-button.w--open {
+  background-color: transparent;
+  border: 1px solid rgba(194, 161, 95, 0.55);
+  border-radius: 2px;
+}
+.header-menu-button-block .top,
+.header-menu-button-block .middle,
+.header-menu-button-block .bottom {
+  background-color: #fff;
+}
+.w-nav-button:focus { box-shadow: 0 0 0 2px var(--myc-gold); }
+
+/* ---------- 4. Buttons ---------------------------------------------------- */
+
+.secondary-button,
+.primary-button,
+.yacht-details-button,
+html .modal-btn,
+body .myc-cta-buttons a {
+  font-family: var(--myc-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  line-height: 1.2;
+}
+
+.primary-button {
+  background-color: var(--myc-ink);
+  padding: 15px 32px;
+  transition: background-color 0.35s ease;
+}
+.primary-button:hover { background-color: var(--myc-gold-deep); opacity: 1; }
+
+.secondary-button { padding: 15px 26px; transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease; }
+.secondary-button:hover { background-color: var(--myc-ink); border-color: var(--myc-ink); color: #fff; }
+
+/* header "Book Now" — champagne outline, fills gold on hover */
+.header-btn-link .secondary-button {
+  border: 1px solid var(--myc-gold);
+  color: #fff;
+}
+.header-btn-link .secondary-button:hover {
+  background-color: var(--myc-gold);
+  border-color: var(--myc-gold);
+  color: var(--myc-ink-deep);
+}
+
+.yacht-details-button {
+  background-color: var(--myc-ink);
+  border-color: var(--myc-ink);
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+.yacht-details-button:hover { background-color: var(--myc-gold-deep); border-color: var(--myc-gold-deep); opacity: 1; }
+
+/* ---------- 5. Homepage hero ---------------------------------------------- */
+
+/* cinematic scrim so the headline sits on deep water, not raw video */
+.home-hero-section .w-background-video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(8, 21, 36, 0.42) 0%,
+    rgba(8, 21, 36, 0.12) 42%,
+    rgba(8, 21, 36, 0.62) 100%);
+}
+
+.home-hero-title {
+  font-size: clamp(3.25rem, 7.5vw, 6.25rem);
+  line-height: 1.0;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(8, 21, 36, 0.45);
+}
+
+.scroll-down-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---------- 6. Section titles — hairline champagne rule ------------------- */
+
+.home-about-title::before,
+.home-fleet-title::before,
+.yacht-details-name::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  background: var(--myc-gold);
+  margin-bottom: 28px;
+}
+
+.testimonial-title::before,
+body .home-faq-title::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  background: var(--myc-gold);
+  margin: 0 auto 28px;
+}
+
+/* ---------- 7. Fleet cards / sliders -------------------------------------- */
+
+.home-about-section {
+  background-image: linear-gradient(rgba(245, 242, 234, 0.94), rgba(245, 242, 234, 0.94)),
+    url("../images/Home-About-Image_1Home About Image.avif");
+}
+
+.yacht-card {
+  background-color: var(--myc-paper);
+  border: 1px solid rgba(12, 31, 53, 0.08);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(12, 31, 53, 0.04), 0 18px 40px -24px rgba(12, 31, 53, 0.25);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.yacht-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 4px rgba(12, 31, 53, 0.05), 0 28px 56px -24px rgba(12, 31, 53, 0.35);
+}
+
+.yacht-name {
+  font-family: var(--myc-serif);
+  font-size: 1.625rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.yacht-details { font-size: 0.9375rem; letter-spacing: 0.02em; }
+
+.yacht-line { background-color: var(--myc-hairline); }
+
+/* slider arrows */
+.yacht-arrow {
+  color: #fff;
+  background-color: rgba(8, 21, 36, 0.45);
+  transition: background-color 0.3s ease;
+}
+.yacht-arrow:hover { background-color: var(--myc-gold-deep); }
+
+/* giant ghost word behind the fleet slider — make it read as intentional */
+.home-yachts-title {
+  font-family: var(--myc-serif);
+  font-weight: 500;
+  color: rgba(12, 31, 53, 0.12);
+}
+
+/* ---------- 8. Stats / overview ------------------------------------------- */
+
+.overview-title { font-weight: 500; }
+.overview-text {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--myc-gold-text);
+}
+
+/* ---------- 9. Benefits (dark) + testimonial ------------------------------- */
+
+.home-benefits-section { background-color: var(--myc-ink-deep); }
+.home-benefits-card-icon { color: var(--myc-gold); }
+.home-benefits-card-title { font-family: var(--myc-serif); font-weight: 600; }
+.home-benefits-card-text { color: var(--myc-mist); }
+
+.testimonial-text, .testimonial-title + * {
+  font-family: var(--myc-serif);
+}
+
+/* ---------- 10. FAQ (inline-styled in body — needs the body prefix) ------- */
+
+body .home-faq-item { border-bottom: 1px solid var(--myc-hairline); }
+body .home-faq-q {
+  font-family: var(--myc-serif);
+  font-size: 1.4375rem;
+  font-weight: 600;
+  color: var(--myc-ink);
+}
+body .home-faq-a { color: var(--myc-slate); line-height: 1.7; }
+
+/* ---------- 11. Yacht detail pages ----------------------------------------- */
+
+/* the detail h1 lives in a narrow 450px card — keep the serif compact */
+.yacht-details-name {
+  font-size: clamp(1.875rem, 2.8vw, 2.5rem);
+  line-height: 1.12;
+}
+
+.yacht-details-text-block {
+  background-color: var(--myc-paper);
+  border: 1px solid rgba(12, 31, 53, 0.08);
+  border-radius: 4px;
+}
+.yacht-details-image, .yacht-details-video { border-radius: 4px; }
+.yacht-details-info-wrap, .yacht-details-info { border-bottom-color: var(--myc-hairline); }
+.yacht-details-info-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--myc-gold-text);
+}
+.yacht-details-info-text { font-weight: 500; }
+.yacht-details-summery { color: var(--myc-slate); }
+
+.yacht-details-field {
+  background-color: var(--myc-paper);
+  border: 1px solid var(--myc-hairline);
+  border-radius: 2px;
+}
+.yacht-details-field:focus { border-color: var(--myc-gold-deep); }
+
+.yacht-gallery-title { font-family: var(--myc-serif); font-weight: 600; }
+
+/* ---------- 12. Occasion / experience pages (myc-*) ------------------------ */
+
+/* white hero band → midnight hero panel (also fixes white-on-white nav) */
+body .myc-hero {
+  background-color: var(--myc-ink-deep);
+  background-image: radial-gradient(120% 90% at 80% 0%, rgba(194, 161, 95, 0.14), transparent 55%);
+  padding: 170px 0 64px;
+}
+body .myc-hero h1 {
+  color: #fdfcf9;
+  font-size: clamp(2.75rem, 5.5vw, 4.25rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+body .myc-hero .myc-lede { color: var(--myc-mist); }
+body .myc-breadcrumb { color: #8fa1b3; }
+body .myc-breadcrumb a { color: #c3cfda; text-decoration: none; }
+body .myc-breadcrumb a:hover { color: var(--myc-gold); }
+body .myc-fact .k { color: var(--myc-gold); }
+body .myc-fact .v { color: #fdfcf9; font-family: var(--myc-serif); font-size: 1.375rem; font-weight: 600; }
+body .myc-hero .yacht-details-button {
+  background-color: var(--myc-gold);
+  border-color: var(--myc-gold);
+  color: var(--myc-ink-deep);
+}
+body .myc-hero .yacht-details-button:hover {
+  background-color: #d4b878;
+  border-color: #d4b878;
+}
+
+body .myc-content h2 { font-family: var(--myc-serif); font-weight: 600; font-size: 2.125rem; }
+body .myc-content h3 { font-family: var(--myc-serif); font-weight: 600; font-size: 1.5rem; }
+body .myc-content p, body .myc-content li { color: #3b4a5c; }
+body .myc-content a { color: var(--myc-ink); text-decoration-color: var(--myc-gold-deep); text-underline-offset: 3px; }
+body .myc-content a:hover { color: var(--myc-gold-deep); }
+
+body .myc-table th { background: var(--myc-ink); font-weight: 600; letter-spacing: 0.04em; }
+body .myc-table td { border-bottom: 1px solid var(--myc-hairline); }
+body .myc-table tr:nth-child(even) td { background: #f8f5ee; }
+body .myc-table a { color: var(--myc-ink); }
+
+body .myc-step { background: #f8f5ee; border: 1px solid var(--myc-hairline); border-radius: 4px; }
+body .myc-step .num { color: var(--myc-gold-text); }
+body .myc-step h3 { font-family: var(--myc-serif); font-size: 1.375rem; }
+
+body .myc-gallery img { border-radius: 4px; }
+body .myc-faq-item { border-bottom: 1px solid var(--myc-hairline); }
+body .myc-faq-item h3 { font-family: var(--myc-serif); font-size: 1.4375rem; }
+
+body .myc-cta-band {
+  background: var(--myc-ink-deep);
+  border: 1px solid rgba(194, 161, 95, 0.35);
+  border-radius: 6px;
+}
+body .myc-cta-band h2 { font-family: var(--myc-serif); font-weight: 600; }
+body .myc-cta-band p { color: var(--myc-mist); }
+body .myc-cta-buttons a { border-radius: 2px; padding: 17px 36px; }
+body .myc-btn-primary { background: var(--myc-gold); color: var(--myc-ink-deep); }
+body .myc-btn-primary:hover { background: #d4b878; }
+body .myc-btn-wa { background: #128c4b; color: #fff; }
+body .myc-btn-wa:hover { background: #0f7a41; }
+
+/* ---------- 12b. Fleet page header (inline-styled) -------------------------- */
+
+/* clear the absolute navy header and join the design system */
+body .yacht-page-header {
+  padding-top: clamp(150px, 15vw, 180px) !important;
+  background: var(--myc-ivory) !important;
+}
+body .yacht-page-header .yacht-title {
+  font-family: var(--myc-serif) !important;
+  font-weight: 600 !important;
+  color: var(--myc-ink) !important;
+  letter-spacing: 0.005em !important;
+}
+
+/* ---------- 12c. Legacy inline-styled CTAs (booking + contact) -------------- */
+
+/* raw style="" pills from the SEO pass — square them and fix WA contrast */
+body a[style*="#25D366"] {
+  background: #128c4b !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+body a[style*="#0d1b4b"][style*="border-radius:999px"] {
+  background: var(--myc-ink) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+body .myc-contact-hero { background: var(--myc-ink-deep); }
+body .myc-contact-phone-btn {
+  border-radius: 2px;
+  color: var(--myc-ink);
+  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.35);
+}
+body .myc-contact-phone-link {
+  font-family: var(--myc-serif);
+  font-weight: 600;
+  color: var(--myc-ink);
+  letter-spacing: 0;
+}
+body .myc-contact-phone-alt a { color: var(--myc-ink); border-bottom-color: rgba(12, 31, 53, 0.4); }
+body .myc-contact-phone-alt a:hover { border-bottom-color: var(--myc-ink); }
+
+/* ---------- 13. Footer ------------------------------------------------------ */
+
+.footer-section {
+  background-image: linear-gradient(rgba(8, 21, 36, 0.92), rgba(8, 21, 36, 0.96)),
+    url("../images/Footer-BG_1Footer BG.avif");
+}
+.footer-nav-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--myc-gold);
+}
+.footer-nav-link { transition: color 0.3s ease; }
+.footer-nav-link:hover {
+  color: var(--myc-gold);
+  -webkit-text-decoration-color: var(--myc-gold);
+  text-decoration-color: var(--myc-gold);
+}
+/* NAP block carries an inline indigo background — retint to the system */
+.footer-nap-block {
+  background: rgba(253, 252, 249, 0.04) !important;
+  border: 1px solid rgba(194, 161, 95, 0.3);
+  border-radius: 4px !important;
+}
+
+.footer-watermark-block { background-color: var(--myc-ink-deep); }
+.footer-watermark {
+  font-family: var(--myc-serif);
+  font-weight: 500;
+  color: rgba(194, 161, 95, 0.28);
+}
+
+/* ---------- 14. Booking modal (inline-styled in head — html prefix wins) --- */
+
+html .modal-booking {
+  background: var(--myc-paper);
+  border-radius: 6px;
+  border-top: 2px solid var(--myc-gold);
+  padding: 52px 44px;
+}
+html .modal-heading {
+  font-family: var(--myc-serif);
+  font-weight: 600;
+  font-size: 2.125rem;
+  color: var(--myc-ink);
+  line-height: 1.1;
+}
+html .modal-subtext { color: var(--myc-slate); }
+html .modal-btn { padding: 19px; }
+html .modal-btn-call { background: var(--myc-ink); }
+html .modal-btn-call:hover { background: var(--myc-gold-deep); box-shadow: none; }
+/* darker WhatsApp green: white label passes contrast */
+html .modal-btn-wa { background: #128c4b; }
+html .modal-btn-wa:hover { background: #0f7a41; box-shadow: none; }
+html .modal-backdrop { background: rgba(5, 13, 24, 0.7); }
+html .modal-close { color: var(--myc-slate); }
+html .modal-close:hover { color: var(--myc-ink); }
+
+/* ---------- 15. Accessibility ----------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--myc-gold-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.header-nav-link:focus-visible,
+.footer-nav-link:focus-visible { outline-color: var(--myc-gold); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto !important; }
+}
+
+/* ---------- 16. Small-screen refinements ------------------------------------ */
+
+@media (max-width: 767px) {
+  .home-hero-title { font-size: clamp(2.5rem, 11vw, 3.5rem); }
+  body .myc-hero { padding: 140px 0 48px; }
+  body .myc-hero h1 { font-size: clamp(2.125rem, 9vw, 2.75rem); }
+  html .modal-booking { padding: 40px 26px; }
+}
