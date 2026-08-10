@@ -1,0 +1,10 @@
+# Internal docs and tooling — never serve these publicly
+*.md
+seo-reference.json
+seo_validate.py
+requirements.txt
+seo-audit-output
+app
+Boat Photos
+Boat Photos for website
+design-overhaul-screenshots

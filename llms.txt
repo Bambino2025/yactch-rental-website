@@ -65,6 +65,8 @@ Lines are open 24 hours, 7 days a week.
 - About: https://miamiyachtcollective.com/about.html
 - Contact: https://miamiyachtcollective.com/contact.html
 - Booking: https://miamiyachtcollective.com/booking.html
+- All experiences (hub): https://miamiyachtcollective.com/services.html
+- Photo gallery: https://miamiyachtcollective.com/gallery.html
 
 ### Individual yacht pages
 

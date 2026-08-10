@@ -3,7 +3,6 @@ Allow: /
 
 # Block Webflow template artifacts that should not be indexed
 Disallow: /search.html
-Disallow: /detail_blog.html
 Disallow: /detail_category.html
 Disallow: /detail_guest.html
 Disallow: /detail_length.html
