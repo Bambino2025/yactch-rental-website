@@ -74,7 +74,7 @@ Every page must include the booking modal markup and JS inline. It's not in an e
 - Replace existing `.avif` or image references with different paths
 - Modify `sitemap.xml` without keeping it in sync with the real page set (new pages must be added)
 - State unverified amenities in copy (BYOB, fuel, catering, towels) — only captain+crew included, Miami River departure and per-yacht prices are owner-confirmed facts
-- State guest / passenger capacity anywhere (2026-07-09: owner had ALL "up to 13 guests"/"Max 13"/guest-count copy, the "Guests" table column, capacity fact tiles, "Max Guests" schema, and the guest-count FAQ removed sitewide — do not reintroduce headcount in copy, schema, tables, or alt text)
+- State a NUMERIC guest / passenger capacity anywhere (2026-07-09: owner had ALL "up to 13 guests"/"Max 13"/guest-count copy, the "Guests" table column, capacity fact tiles, "Max Guests" schema, and the guest-count FAQ removed sitewide — do not reintroduce numeric headcount in copy, schema, tables, or alt text. 2026-08-10: the sanctioned replacement is the "Guests: Based on your needs &mdash; inquire for details" spec row now on all 10 yacht pages — keep that line, never swap a number back in)
 - `git add -A` — the working tree carries intentional uncommitted deletions (assets moved to untracked `public/` for a dormant Next.js experiment); stage files explicitly
 - Add payment forms, login, or backend functionality
 
